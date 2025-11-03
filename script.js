@@ -110,6 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicia a troca automática de vídeos a cada 8 segundos
     if (videoSlides.length > 1) {
-        setInterval(changeVideo, 8000); // 8000ms = 8 segundos
+        setInterval(changeVideo, 6000); // 8000ms = 8 segundos
     }
 });
