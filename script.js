@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ====================================
     // 1. FUNCIONALIDADE DO MENU MOBILE
     // ====================================
+    // ... (código do menu mobile) ...
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.menu-principal');
 
@@ -12,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
             menuToggle.classList.toggle('aberto');
         });
 
-        // Fechar menu ao clicar em um item (opcional)
         navMenu.querySelectorAll('a').forEach(item => {
             item.addEventListener('click', () => {
                 navMenu.classList.remove('ativo');
@@ -24,13 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ====================================
     // 2. ANIMAÇÃO DE ROLAGEM (Intersection Observer)
     // ====================================
-    // Inclui todas as seções, cards de serviço e itens de projeto
+    // ... (código da animação de rolagem) ...
     const elementosParaAnimar = document.querySelectorAll('.secao, .servico-card, .projeto-item');
-
-    // Elemento específico para a animação SLIDE/FADE da imagem de perfil
     const imagemPerfil = document.querySelector('.conteudo-sobre .imagem-perfil');
 
-    // Se a imagem de perfil existir, aplicamos o estado inicial
     if (imagemPerfil) {
         imagemPerfil.classList.add('animacao-sobre-inicio');
     }
@@ -40,27 +37,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visivel');
 
-                // Lógica Específica para a imagem de perfil (Fade e Slide)
                 if (entry.target === imagemPerfil) {
                     entry.target.classList.remove('animacao-sobre-inicio');
                     entry.target.classList.add('animacao-sobre-fim');
-                    // Desliga o observador para esta imagem após a primeira animação
                     observer.unobserve(entry.target);
                 }
 
             }
         });
     }, {
-        threshold: 0.1 // Começa a animar quando 10% do elemento estiver visível
+        threshold: 0.1
     });
 
-    // Observa todos os elementos genéricos
     elementosParaAnimar.forEach(el => {
         el.classList.add('oculto');
         observer.observe(el);
     });
 
-    // Observa a imagem de perfil (se ela existir)
     if (imagemPerfil) {
         observer.observe(imagemPerfil);
     }
@@ -69,16 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ====================================
     // 3. FUNCIONALIDADE DE FILTRAGEM DE PROJETOS
     // ====================================
+    // ... (código de filtragem de projetos) ...
     const filtroBotoes = document.querySelectorAll('.filtro-btn');
     const itensProjeto = document.querySelectorAll('.grid-projetos .projeto-item');
 
     filtroBotoes.forEach(button => {
         button.addEventListener('click', () => {
-            // Remove a classe 'ativo' de todos os botões e adiciona ao clicado
             filtroBotoes.forEach(btn => btn.classList.remove('ativo'));
             button.classList.add('ativo');
 
-            const filtro = button.dataset.filtro; // Pega o valor do atributo data-filtro
+            const filtro = button.dataset.filtro;
 
             itensProjeto.forEach(item => {
                 const categoriaItem = item.dataset.categoria;
@@ -94,22 +87,59 @@ document.addEventListener('DOMContentLoaded', () => {
     // ====================================
     // 4. FUNCIONALIDADE DE SLIDE DE VÍDEOS DE FUNDO
     // ====================================
+    // ... (código do slider de vídeos) ...
     const videoSlides = document.querySelectorAll('.video-slide');
     let currentVideo = 0;
 
     function changeVideo() {
-        // Remove a classe 'ativo' do vídeo atual
         videoSlides[currentVideo].classList.remove('ativo');
-
-        // Move para o próximo vídeo ou volta para o primeiro
         currentVideo = (currentVideo + 1) % videoSlides.length;
-
-        // Adiciona a classe 'ativo' ao novo vídeo
         videoSlides[currentVideo].classList.add('ativo');
     }
 
-    // Inicia a troca automática de vídeos a cada 8 segundos
     if (videoSlides.length > 1) {
-        setInterval(changeVideo, 6000); // 8000ms = 8 segundos
+        setInterval(changeVideo, 8000); // 8000ms = 8 segundos
     }
+
+    // ====================================
+    // 5. MODAL DE VISUALIZAÇÃO DE PROJETOS
+    // ====================================
+    const modal = document.getElementById('modal-visualizacao');
+    const fecharBtn = document.querySelector('.fechar-modal');
+    // Obs: itensProjeto já foi definido na seção 3
+
+    itensProjeto.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault(); // Impede o link de navegar
+
+            // 1. Captura de dados do item clicado
+            const imgSrc = item.querySelector('img').src;
+            const titulo = item.querySelector('.info-overlay h3').textContent;
+            const categoria = item.querySelector('.info-overlay p span').textContent;
+            const linkDetalhe = item.getAttribute('href');
+
+            // 2. Preenche o modal
+            document.getElementById('modal-imagem').src = imgSrc;
+            document.querySelector('#modal-info h3').textContent = titulo;
+            document.querySelector('#modal-info p').textContent = `Categoria: ${categoria}`;
+
+            // 3. O link "Ver Projeto Completo" leva ao link original do <a>
+            document.querySelector('.btn-detalhe-projeto').setAttribute('href', linkDetalhe);
+
+            // 4. Exibe o modal
+            modal.style.display = 'block';
+        });
+    });
+
+    // Função para fechar o modal
+    fecharBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Fechar se clicar fora do modal
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 });
