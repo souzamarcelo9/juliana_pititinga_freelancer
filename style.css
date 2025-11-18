@@ -7,6 +7,7 @@
     --cor-fundo: #FFFFFF;
     --cor-texto-escuro: #333333;
     --cor-texto-claro: #F0F0F0;
+    --cor-amarelo-suave: #f9fac3; /* Novo: Amarelo muito claro para fundo */
     --fonte-principal: 'Inter', sans-serif;
     --transicao-suave: 0.3s ease;
 }
@@ -151,6 +152,9 @@ a:hover {
     opacity: 0.8;
     color: var(--cor-texto-escuro);
 }
+.fundo-suave {
+    background-color: var(--cor-amarelo-suave); /* Aplica o amarelo suave */
+}
 
 /* ==================================== */
 /* 4. HERO BANNER (INTRODUÇÃO) & VÍDEO DE FUNDO */
@@ -291,14 +295,96 @@ a:hover {
 /* Fonte Estilosa para o Tagline */
 .tagline-sobre.font-estilosa {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.2em;
+    font-size: 3.2em;
     font-weight: normal;
     color: var(--cor-secundaria); /* Amarelo Ouro */
     margin-bottom: 25px;
     line-height: 1.2;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
+/* ==================================== */
+/* 6. NOVA SEÇÃO: GOD WRITES - A IDEIA */
+/* ==================================== */
+#ideia {
+    padding: 120px 0;
+    overflow: hidden;
+}
 
+.conteudo-ideia {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+
+    /* Animação de entrada dos textos */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+#ideia.visivel .conteudo-ideia {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.texto-ideia {
+    flex: 2;
+    text-align: left;
+}
+.texto-ideia h2 {
+    font-size: 2.5em;
+    color: var(--cor-primaria);
+    margin-bottom: 5px;
+}
+.texto-ideia h3 {
+    font-size: 1.5em;
+    color: var(--cor-secundaria);
+    margin-bottom: 30px;
+}
+.texto-ideia p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.imagem-ideia {
+    flex: 1;
+    max-width: 300px;
+    position: relative;
+}
+
+.imagem-ideia img {
+    width: 100%;
+    height: auto;
+
+    /* ANIMAÇÃO: Efeito de pulsação/brilho na lâmpada */
+    animation: pulseGlow 2.5s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from {
+        opacity: 0.8;
+        transform: scale(1.0);
+    }
+    to {
+        opacity: 1.0;
+        transform: scale(1.05);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .conteudo-ideia {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    .texto-ideia {
+        text-align: center;
+    }
+    .imagem-ideia {
+        order: -1; /* Move a imagem para cima no mobile */
+    }
+}
 /* ==================================== */
 /* 6. GRID DE SERVIÇOS */
 /* ==================================== */
@@ -697,79 +783,395 @@ a:hover {
 }
 
 
+/* ... (Seções 1 a 10 - sem alterações) ... */
+
 /* ==================================== */
-/* 9. RESPONSIVIDADE (Media Queries) */
+/* 11. ESTILOS DA PÁGINA DE DETALHE DE PROJETO E CARROSSEL */
 /* ==================================== */
-@media (max-width: 768px) {
-    #cabecalho nav {
-        padding: 15px 20px;
-    }
-    .menu-principal {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background-color: var(--cor-fundo);
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        padding: 20px 0;
-        text-align: center;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: opacity var(--transicao-suave), transform var(--transicao-suave);
-    }
-    .menu-principal.ativo {
-        display: flex;
+#detalhe-projeto {
+    padding-top: 150px; /* AUMENTADO PARA DAR MAIS ESPAÇO AO HEADER FIXO */
+    text-align: center;
+}
+
+#titulo-projeto-detalhe {
+    font-size: 2.8em;
+    color: var(--cor-primaria);
+    margin-bottom: 10px;
+}
+
+#categoria-projeto-detalhe {
+    font-family: var(--fonte-principal); /* Volta para a fonte principal */
+    font-size: 1.2em;
+    color: var(--cor-secundaria);
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.carrossel-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto 50px auto;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.carrossel-slides {
+    display: flex;
+    transition: transform 0.8s ease-in-out;
+}
+
+.carrossel-slide-item {
+    min-width: 100%;
+    height: 720px; /* Altura fixa para os slides do carrossel */
+    object-fit: cover; /* Recorta para cobrir, mantendo proporção */
+    display: block;
+}
+
+.carrossel-prev, .carrossel-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    user-select: none;
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+    /* Linhas adicionais: Garante que as setas estejam nas bordas */
+    z-index: 10;
+}
+
+/* Seta de Avançar (>) - Posição Correta: Extrema Direita */
+.carrossel-next {
+    right: 0;
+    border-radius: 3px 0 0 3px; /* Cantos arredondados na esquerda */
+}
+
+/* Seta de Voltar (<) - Posição Correta: Extrema Esquerda */
+.carrossel-prev {
+    left: 0;
+    border-radius: 0 3px 3px 0; /* Cantos arredondados na direita */
+}
+
+.carrossel-prev:hover, .carrossel-next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.carrossel-dots {
+    text-align: center;
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+}
+
+.carrossel-dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.carrossel-dot.ativo, .carrossel-dot:hover {
+    background-color: var(--cor-secundaria);
+}
+
+/* Conteúdo detalhado */
+.conteudo-detalhe {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+    padding-bottom: 50px;
+}
+.conteudo-detalhe h3 {
+    color: var(--cor-primaria);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+.conteudo-detalhe p {
+    margin-bottom: 15px;
+}
+.conteudo-detalhe ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.conteudo-detalhe ul li {
+    margin-bottom: 5px;
+}
+
+/* ==================================== */
+/* 12. ESTILIZAÇÃO E ANIMAÇÕES DA SEÇÃO DE CONTATO */
+/* ==================================== */
+#contato {
+    background-color: var(--cor-fundo); /* Fundo claro para contrastar */
+    padding: 80px 0;
+    overflow: hidden; /* Para garantir que as animações não causem scroll indesejado */
+}
+
+#contato h2 {
+    font-size: 2.8em;
+    color: var(--cor-primaria);
+    margin-bottom: 60px;
+    position: relative;
+    text-align: center;
+}
+#contato h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--cor-secundaria);
+    border-radius: 2px;
+}
+
+
+.contato-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: flex-start; /* Alinha o topo dos cards */
+}
+
+.contato-form-card,
+.contato-info-card {
+    background-color: var(--cor-fundo);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s ease;
+    /* Animações iniciais para JS */
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Animação para cada card */
+.contato-form-card.visivel {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s; /* Atraso para o formulário */
+}
+
+.contato-info-card.visivel {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s; /* Atraso para as infos */
+}
+
+.contato-form-card h3,
+.contato-info-card h3 {
+    color: var(--cor-primaria);
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Estilo do formulário (semelhante ao existente, mas dentro do card) */
+.contato-form-card .formulario-contato {
+    max-width: none; /* Remove a largura máxima para se ajustar ao card */
+    margin-top: 0;
+    align-items: stretch; /* Garante que os inputs se estiquem */
+}
+.contato-form-card .formulario-contato input,
+.contato-form-card .formulario-contato textarea {
+    border: 1px solid #dcdcdc;
+    padding: 12px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #f9f9f9;
+    transition: border-color var(--transicao-suave), box-shadow var(--transicao-suave);
+}
+.contato-form-card .formulario-contato input:focus,
+.contato-form-card .formulario-contato textarea:focus {
+    border-color: var(--cor-secundaria);
+    box-shadow: 0 0 0 3px rgba(245, 185, 45, 0.2);
+    outline: none;
+}
+.contato-form-card .formulario-contato .btn-cta {
+    background-color: var(--cor-primaria); /* Botão de contato azul */
+    color: var(--cor-fundo);
+    padding: 15px 25px;
+    font-size: 1.1em;
+    font-weight: 700;
+    transition: background-color var(--transicao-suave), transform var(--transicao-suave);
+    border: none; /* Remove borda redundante */
+}
+.contato-form-card .formulario-contato .btn-cta:hover {
+    background-color: #1a3a5e; /* Azul mais escuro no hover */
+    transform: translateY(-2px);
+}
+
+/* Informações de contato no card */
+.contato-info-card .contato-item { /* Usando a classe 'contato-item' do HTML */
+    margin-bottom: 30px;
+    text-align: left;
+    position: relative;
+
+    /* ESTADO INICIAL: ESCONDIDO */
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ESTADO FINAL: VISÍVEL E ANIMADO (Aplicado quando o Card pai é visível) */
+.contato-info-card.visivel .contato-item:nth-child(1) { opacity: 1; transform: translateX(0); transition-delay: 0.6s; }
+.contato-info-card.visivel .contato-item:nth-child(2) { opacity: 1; transform: translateX(0); transition-delay: 0.8s; }
+.contato-info-card.visivel .contato-item:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 1.0s; }
+
+.contato-info-card h4 { /* Títulos menores: LOCALIZAÇÃO, TELEFONE, EMAIL */
+    color: var(--cor-secundaria);
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    border-bottom: 2px solid var(--cor-secundaria);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+.contato-info-card p {
+    font-size: 1em;
+    color: var(--cor-texto-escuro);
+    margin-bottom: 5px;
+}
+.contato-info-card a {
+    color: var(--cor-primaria);
+    font-weight: 500;
+}
+.contato-info-card a:hover {
+    color: var(--cor-secundaria);
+}
+
+/* ==================================== */
+/* 13. NOVA SEÇÃO ANIMADA: INOVAÇÃO EM ENGENHARIA */
+/* ==================================== */
+#inovacao {
+    background-color: var(--cor-primaria); /* Fundo azul da marca */
+    color: var(--cor-texto-claro);
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+#inovacao h2 {
+    color: var(--cor-fundo); /* Título branco */
+    font-size: 3em;
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+#inovacao.visivel h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.inovacao-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.inovacao-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 5px solid var(--cor-secundaria);
+    transition: transform 0.4s ease, background-color 0.4s ease;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+#inovacao.visivel .inovacao-card:nth-child(1) { animation: fadeUpInovacao 0.7s ease-out forwards; animation-delay: 0.3s; }
+#inovacao.visivel .inovacao-card:nth-child(2) { animation: fadeUpInovacao 0.7s ease-out forwards; animation-delay: 0.5s; }
+#inovacao.visivel .inovacao-card:nth-child(3) { animation: fadeUpInovacao 0.7s ease-out forwards; animation-delay: 0.7s; }
+
+@keyframes fadeUpInovacao {
+    to {
         opacity: 1;
         transform: translateY(0);
     }
-    .menu-principal li {
-        margin: 10px 0;
-    }
+}
 
-    .menu-toggle {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 1.8em;
-        cursor: pointer;
-        color: var(--cor-primaria);
-    }
-    .hero-banner h1 {
-        font-size: 2.5em;
-    }
-    .conteudo-sobre {
-        flex-direction: column;
-        text-align: center;
-    }
-    .conteudo-sobre .imagem-perfil {
-        margin-top: 30px;
-    }
 
-    .grid-servicos {
+.inovacao-card:hover {
+    transform: translateY(-10px);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.inovacao-card .icone { /* Placeholder para ícones, use SVGs ou Font Awesome */
+    font-size: 3em;
+    color: var(--cor-secundaria);
+    margin-bottom: 20px;
+}
+
+.inovacao-card h3 {
+    color: var(--cor-fundo);
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.inovacao-card p {
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+
+/* ==================================== */
+/* 14. RESPONSIVIDADE (Media Queries) */
+/* ==================================== */
+@media (max-width: 992px) {
+    .carrossel-slide-item {
+        height: 400px;
+    }
+    .contato-layout {
+        grid-template-columns: 1fr; /* Coluna única em tablets */
+        gap: 30px;
+    }
+    .contato-form-card,
+    .contato-info-card {
+        padding: 30px;
+    }
+    .inovacao-grid {
         grid-template-columns: 1fr;
     }
+}
 
-    .filtro-btn {
-        margin-bottom: 10px;
+@media (max-width: 768px) {
+    /* ... (Estilos de media query existentes) ... */
+    #titulo-projeto-detalhe {
+        font-size: 2em;
+    }
+    .carrossel-slide-item {
+        height: 300px;
+    }
+    #inovacao h2 {
+        font-size: 2.2em;
+    }
+    .carrossel-dots {
+        position: static; /* Remove a posição absoluta para não sobrepor */
+        background: none;
+        margin-top: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .hero-banner h1 {
-        font-size: 2em;
-    }
-    .tagline {
-        font-size: 1em;
-    }
-    .secao {
-        padding: 60px 0;
-    }
-    .grid-projetos {
-        grid-template-columns: 1fr;
-    }
-    .projeto-item img {
+    /* ... (Estilos de media query existentes) ... */
+    .carrossel-slide-item {
         height: 200px;
     }
 }
