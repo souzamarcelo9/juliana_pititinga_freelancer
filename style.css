@@ -7,7 +7,7 @@
     --cor-fundo: #FFFFFF;
     --cor-texto-escuro: #333333;
     --cor-texto-claro: #F0F0F0;
-    --cor-amarelo-suave: #f9fac3; /* Novo: Amarelo muito claro para fundo */
+    --cor-amarelo-suave: #feffca; /* Novo: Amarelo muito claro para fundo */
     --fonte-principal: 'Inter', sans-serif;
     --transicao-suave: 0.3s ease;
 }
