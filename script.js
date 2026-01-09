@@ -157,7 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 'inversor1.jpeg',
                 'hoqrd_WhatsApp Image 2025-11-12 at 10.04.52.jpeg',
                 'hmduf_WhatsApp Image 2025-11-12 at 10.04.19.jpeg',
-                'epcom_WhatsApp Image 2025-11-12 at 10.04.19.jpeg'
+                'epcom_WhatsApp Image 2025-11-12 at 10.04.19.jpeg',
+                'plataforma1.jpeg',
+                'laboratorio1.png',
+                'automacao_hid_mobil4.jpeg',
+                'automacao_hid_mobil3.jpeg',
+                'automacao_hid_mobil2.jpeg',
+                'automacao_hid_mobil1.jpeg'
+
                 //imgSrc.replace('.jpeg', '_detalhe1.jpeg'),
                 //imgSrc.replace('.jpeg', '_detalhe2.jpeg'),
             ];
