@@ -1095,6 +1095,17 @@ a:hover {
     opacity: 0;
     transform: translateY(50px);
 }
+/*
+.inovacao-card .icone {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}*/
+
+.inovacao-card:hover .icone img {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
 
 #inovacao.visivel .inovacao-card:nth-child(1) { animation: fadeUpInovacao 0.7s ease-out forwards; animation-delay: 0.3s; }
 #inovacao.visivel .inovacao-card:nth-child(2) { animation: fadeUpInovacao 0.7s ease-out forwards; animation-delay: 0.5s; }
@@ -1113,11 +1124,12 @@ a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.inovacao-card .icone { /* Placeholder para ícones, use SVGs ou Font Awesome */
+/*
+.inovacao-card .icone
     font-size: 3em;
     color: var(--cor-secundaria);
     margin-bottom: 20px;
-}
+}*/
 
 .inovacao-card h3 {
     color: var(--cor-fundo);
@@ -1129,7 +1141,44 @@ a:hover {
     font-size: 0.95em;
     line-height: 1.5;
 }
+.inovacao-card .icone {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
 
+/*
+.inovacao-card .icone img {
+    width: 80px;
+    height: auto;
+    filter: brightness(0) invert(1);
+
+}*/
+
+.inovacao-card .icone {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inovacao-card .icone img {
+    width: 100px;
+    height: auto;
+    display: block;
+
+    /* REMOVA o filtro por enquanto */
+    filter: none;
+}
+.inovacao-card .icone:not(:has(img)) {
+    font-size: 40px;   /* AQUI está o tamanho */
+}
+
+.inovacao-card:hover .icone img,
+.inovacao-card:hover .icone:not(:has(img)) {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
 
 /* ==================================== */
 /* 14. RESPONSIVIDADE (Media Queries) */
